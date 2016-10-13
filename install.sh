@@ -273,17 +273,21 @@ function check_required_libs
         hash dpkg &> /dev/null
         has_dpkg=$?
         local present=""
+        dbname=""
         if [ $has_rpm -eq 0 ]; then
             log "Checking for $lib"
             present=$(rpm -q -a $lib) >> $log_file 2>&1
+            dbname="RPM"
         elif [ $has_aptitude -eq 0 ]; then
             log "Checking for $lib"
             present=$(aptitude search $lib ) >> $log_file 2>&1
+            dbname="aptitude"
         elif [ $has_dpkg -eq 0 ]; then
             present=$(dpkg --get-selections $lib ) >> $log_file 2>&1
+            dbname="dpkg"
         fi
         if [ "$present" == "" ]; then
-            log "The $lib library was not found installed in the RPM database."
+            log "The $lib library was not found installed in the $dbname database."
             log "See README for which libraries are required for the $driver_name."
             return 1;
         fi
