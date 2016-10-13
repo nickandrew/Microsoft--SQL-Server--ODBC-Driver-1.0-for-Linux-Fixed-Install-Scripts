@@ -219,11 +219,12 @@ function format_status
 function report_config()
 {
     format_status "Checking for 64 bit Linux compatible OS" "$1"
-    format_status "Checking required libs/locale(en_US.utf8) are installed" "$2"
-    format_status "unixODBC utilities (odbc_config and odbcinst) installed" "$3"
-    format_status "unixODBC Driver Manager version $req_dm_ver installed" "$4"
-    format_status "unixODBC Driver Manager configuration correct" "$5"
-    format_status "$driver_name already installed" "$6"
+    format_status "Checking required locale(en_US.utf8) is installed" "$2"
+    format_status "Checking required libs are installed" "$3"
+    format_status "unixODBC utilities (odbc_config and odbcinst) installed" "$4"
+    format_status "unixODBC Driver Manager version $req_dm_ver installed" "$5"
+    format_status "unixODBC Driver Manager configuration correct" "$6"
+    format_status "$driver_name already installed" "$7"
 }
 
 # verify that the installation is on a 64 bit OS
