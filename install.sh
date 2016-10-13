@@ -22,17 +22,14 @@ is_this_debian_based="/etc/debian_version"
 
 req_libs=""
 real_deb_req_libs=( "libc6" "libkrb5-3" "e2fsprogs" "openssl" )
-
-#this should get renamed to ubuntu_req_libs or something 
-deb_req_libs=( '~i"^libc6$"' '~i"libkrb5\-[0-9]$"' '~i"^e2fsprogs$"' '~i"^openssl$"' )
-
+aptitude_req_libs=( '~i"^libc6:amd64"' '~i"libkrb5\-[0-9]$"' '~i"^e2fsprogs$"' '~i"^openssl$"' )
 red_req_libs=( glibc e2fsprogs krb5-libs openssl )
 
 if [ $os_dist_id == "Ubuntu" ] || [ $os_dist_id == "Debian" ] || [ $os_dist_id == "LinuxMint" ] || [ -e "$is_this_debian_based" ]; then
     hash aptitude &> /dev/null
     has_aptitude=$?
-    if [ $os_dist_id == "Ubuntu" ] || [ $os_dist_id == "LinuxMint" ] || [ $has_aptitude -eq 0 ]; then
-        req_libs=("${deb_req_libs[@]}")
+    if ( [ $os_dist_id == "Ubuntu" ] || [ $os_dist_id == "LinuxMint" ] ) && [ $has_aptitude -eq 0 ]; then
+        req_libs=("${aptitude_req_libs[@]}")
     else
         req_libs=("${real_deb_req_libs[@]}")
     fi
